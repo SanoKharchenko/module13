@@ -2,12 +2,12 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import asyncio
 
-api = ">>>"
+api = ""
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 
-@dp.message_handler(text=["\start"])
+@dp.message_handler(commands=["start"])
 async def start(message):
     print("Привет! Я бот помогающий твоему здоровью.")
 
