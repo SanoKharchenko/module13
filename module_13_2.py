@@ -1,29 +1,20 @@
-import logging
-
-from aiogram import Bot, Dispatcher, types #executor
-from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.filters.command import Command
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import asyncio
 
-api = "7512843645:AAFZOEal0hggbP4UqBnkqUXMXzS-W4ZcqOo"
+api = ">>>"
 bot = Bot(token=api)
-dp = Dispatcher(storage=MemoryStorage())
-
-logging.basicConfig(level=logging.INFO)
-
-async def main():
-    await dp.start_polling(bot)
+dp = Dispatcher(bot, storage=MemoryStorage())
 
 
-@dp.message(Command("start"))
-async def start(message: types.Message):
+@dp.message_handler(text=["\start"])
+async def start(message):
     print("Привет! Я бот помогающий твоему здоровью.")
 
 
-@dp.message
-async def all_messages(message: types.Message):
+@dp.message_handler()
+async def all_massages(message):
     print("Введите команду /start, чтобы начать общение.")
 
-
 if __name__ == "__main__":
-    asyncio.run(main())
+    executor.start_polling(dp, skip_updates=True)
